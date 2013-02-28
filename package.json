@@ -1,0 +1,21 @@
+{
+  "name": "r-value",
+  "description": "scuttlebutt a single value",
+  "version": "0.0.0",
+  "homepage": "https://github.com/dominictarr/r-value",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dominictarr/r-value.git"
+  },
+  "dependencies": {
+    "scuttlebutt": "~5.5"
+  },
+  "devDependencies": {
+    "tape": "~0.2.2"
+  },
+  "scripts": {
+    "test": "set -e; for t in test/*.js; do node $t; done"
+  },
+  "author": "Dominic Tarr <dominic.tarr@gmail.com> (http://dominictarr.com)",
+  "license": "MIT"
+}
