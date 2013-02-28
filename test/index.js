@@ -11,13 +11,22 @@ test('set, get', function (t) {
 })
 
 test('history', function (t) {
-  var v = new Value()
+  var v = new Value(), updates = [], r
   v.histLength = 10
+
+  v.on('update', updates.push.bind(updates))
+
   v.set('hello')
-  v.set(Math.random())
+  v.set(r = Math.random())
   v.set({thing: true})
 
   t.deepEqual({thing: true}, v.get())
+  t.deepEqual(updates, [
+    'hello',
+    r,
+    {thing: true}
+  ])
+
   console.log(v.history())
   t.end()
 })
