@@ -4,6 +4,7 @@ var u           = require('scuttlebutt/util')
 
 inherits(Value, Scuttlebutt)
 
+//Constructor must call Scuttlebutt.call(this)
 function Value (id, len) {
   if(!(this instanceof Value)) return new Value(id, len)
   Scuttlebutt.call(this, id)
@@ -12,6 +13,10 @@ function Value (id, len) {
 }
 
 var V = Value.prototype
+
+//each scuttlebutt subclass provides it's own functions
+//to manipulate and retrive it's values.
+//it should also emit events when it changes.
 
 V.set = function (e) {
   this.localUpdate(e)
@@ -24,6 +29,12 @@ V.get = function () {
   return this._history[l - 1] && this._history[l - 1][0]
 }
 
+//each scuttlebutt subclass must override 
+//applyUpdate and history
+
+//applyUpdate takes a new update object,
+//[value, ts, source_id]
+//and puts it into the Scuttlebutt's history.
 V.applyUpdate = function (update) {
   this._history.push(update)
   u.sort(this._history)
@@ -32,6 +43,11 @@ V.applyUpdate = function (update) {
   this.emit('update', update[0])
   return true
 }
+
+//history returns the updates since the sources.
+//sources is a object of source_id: timestamp
+//it should only return updates MORE RECENT
+//for each source.
 
 V.history = function (sources) {
   var h = []
