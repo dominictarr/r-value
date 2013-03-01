@@ -9,7 +9,7 @@ function Value (id, len) {
   if(!(this instanceof Value)) return new Value(id, len)
   Scuttlebutt.call(this, id)
   this._history = []
-  this.histLength = 1
+  this.histLength = len || 1
 }
 
 var V = Value.prototype
@@ -24,6 +24,7 @@ V.set = function (e) {
 }
 
 V.get = function () {
+  this._history = this._histroy || []
   var l = this._history.length
   if(!l) return null
   return this._history[l - 1] && this._history[l - 1][0]
@@ -36,6 +37,7 @@ V.get = function () {
 //[value, ts, source_id]
 //and puts it into the Scuttlebutt's history.
 V.applyUpdate = function (update) {
+  this._history = this._histroy || []
   this._history.push(update)
   u.sort(this._history)
   while(this._history.length > this.histLength)
@@ -50,6 +52,7 @@ V.applyUpdate = function (update) {
 //for each source.
 
 V.history = function (sources) {
+  this._history = this._histroy || []
   var h = []
   this._history.forEach(function (e) {
     if(u.filter(e, sources))
