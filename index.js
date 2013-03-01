@@ -58,4 +58,8 @@ V.history = function (sources) {
   return h
 }
 
+V.toJSON = function () {
+  return V.get()
+}
+
 module.exports = Value
