@@ -24,7 +24,7 @@ V.set = function (e) {
 }
 
 V.get = function () {
-  this._history = this._histroy || []
+  this._history = this._history || []
   var l = this._history.length
   if(!l) return null
   return this._history[l - 1] && this._history[l - 1][0]
@@ -37,7 +37,7 @@ V.get = function () {
 //[value, ts, source_id]
 //and puts it into the Scuttlebutt's history.
 V.applyUpdate = function (update) {
-  this._history = this._histroy || []
+  this._history = this._history || []
   this._history.push(update)
   u.sort(this._history)
   while(this._history.length > this.histLength)
@@ -52,7 +52,7 @@ V.applyUpdate = function (update) {
 //for each source.
 
 V.history = function (sources) {
-  this._history = this._histroy || []
+  this._history = this._history || []
   var h = []
   this._history.forEach(function (e) {
     if(u.filter(e, sources))
@@ -62,7 +62,7 @@ V.history = function (sources) {
 }
 
 V.toJSON = function () {
-  return V.get()
+  return this.get()
 }
 
 module.exports = Value
