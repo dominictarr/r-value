@@ -7,6 +7,7 @@ test('set, get', function (t) {
   v.set('hello')
 
   t.equal('hello', v.get())
+  t.equal('hello', v.toJSON())
   t.end()
 })
 
@@ -17,8 +18,14 @@ test('history', function (t) {
   v.on('update', updates.push.bind(updates))
 
   v.set('hello')
+  t.equal('hello', v.toJSON())
+  t.equal('hello', v.get())
   v.set(r = Math.random())
+  t.equal(r, v.toJSON())
+  t.equal(r, v.get())
   v.set({thing: true})
+  t.deepEqual({thing: true}, v.toJSON())
+  t.deepEqual({thing: true}, v.get())
 
   t.deepEqual({thing: true}, v.get())
   t.deepEqual(updates, [
