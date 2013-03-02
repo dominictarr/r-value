@@ -38,3 +38,19 @@ test('history', function (t) {
   t.end()
 })
 
+test('replicate', function (t) {
+
+  var v = new Value()
+  var w = new Value()
+
+  var vs = v.createStream()
+
+  vs.pipe(w.createStream()).pipe(vs).resume()
+  vs.resume()
+
+  v.set({hello: true})
+
+  t.deepEqual(v.get(), w.get())
+  t.end()
+
+})
