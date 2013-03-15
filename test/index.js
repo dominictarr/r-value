@@ -54,3 +54,15 @@ test('replicate', function (t) {
   t.end()
 
 })
+
+test('null toJSON', function (t) {
+
+ var v = new Value()
+  v.set({thing: true})
+
+  t.deepEqual(v.get(), {thing: true})
+  v.set(null)
+  console.log(v.history())
+  t.deepEqual(v.get(), null)
+  t.end()
+})
