@@ -41,7 +41,7 @@ V.applyUpdate = function (update) {
   this._history.push(update)
   u.sort(this._history)
   while(this._history.length > this.histLength)
-    this.emit('_remove', this._history.pop())
+    this.emit('_remove', this._history.shift())
   this.emit('update', update[0])
   return true
 }
